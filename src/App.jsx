@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { supabase } from "./supabase"
 import RecipeCard from "./components/RecipeCard"
+import RecipeForm from "./components/RecipeForm"
 
 const App = () => {
   const [recipes, setRecipes] = useState([])
@@ -44,9 +45,10 @@ const App = () => {
         </div>
       </header>
       <main className="max-w-4xl mx-auto px-4">
+        <RecipeForm onRececipeAdded={fetchRecipes} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map(recipe => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard key={recipe.id} recipe={recipe} onDelete={fetchRecipes} />
           ))}
         </div>
       </main>
