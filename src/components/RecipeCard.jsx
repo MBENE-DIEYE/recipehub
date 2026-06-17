@@ -11,13 +11,12 @@ const RecipeCard = ({ recipe, onDelete }) => {
                 .select("id")
                 .eq("username", "marie")
                 .single()
-
             const { data } = await supabase
                 .from("favorites")
                 .select("id")
                 .eq("recipe_id", recipe.id)
                 .eq("user_id", userData.id)
-                .single()
+                .maybeSingle()
 
             setIsFavorite(!!data)
         }
