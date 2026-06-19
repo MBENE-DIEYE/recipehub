@@ -18,3 +18,25 @@ If you are developing a production application, we recommend using TypeScript wi
 N#W*2XVR&x*HDU?
 
 https://recipehub-opal-nu.vercel.app/
+
+Demo online: recipehub-opal-nu.vercel.app
+
+Funzionalità
+
+
+Aggiunta ricette – form per inserire titolo, categoria e tempo di preparazione
+Lista ricette in tempo reale – la lista si aggiorna automaticamente dopo ogni aggiunta o eliminazione, senza ricaricare la pagina
+Ricerca per categoria – filtro istantaneo tramite barra di ricerca
+Preferiti – possibilità di salvare/rimuovere ricette dai preferiti con un'icona a cuore
+Eliminazione ricette – rimozione diretta delle ricette dalla lista
+Design responsive – interfaccia pulita costruita con Tailwind CSS, ottimizzata sia per desktop che per mobile
+
+
+ Tecnologie utilizzate
+
+
+React – libreria per la costruzione dell'interfaccia utente
+Vite – build tool per lo sviluppo e il bundling
+Tailwind CSS – framework CSS utility-first per lo styling
+Supabase – backend-as-a-service (database PostgreSQL, API e autenticazione)
+Vercel – hosting e deploy continuo
