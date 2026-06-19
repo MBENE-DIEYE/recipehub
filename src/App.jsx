@@ -45,7 +45,7 @@ const App = () => {
         </div>
       </header>
       <main className="max-w-4xl mx-auto px-4">
-        <RecipeForm onRecipAdded={fetchRecipes} />
+        <RecipeForm onRecipeAdded={fetchRecipes} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map(recipe => (
             <RecipeCard key={recipe.id} recipe={recipe} onDelete={fetchRecipes} />

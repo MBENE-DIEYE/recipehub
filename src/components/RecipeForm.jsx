@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
 
-const RecipeForm = ({ onRecipAdded }) => {
+const RecipeForm = ({ onRecipeAdded }) => {
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
     const [prepTime, setPrepTime] = useState("");
