@@ -55,8 +55,8 @@ const HomePage = () => {
                 <div className="max-w-4xl mx-auto px-4">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-3xl font-bold text-orange-500">RecipeHub</h1>
-                            <p className="text-gray-500 mt-1">Scopri e condividi le tue ricette preferite</p>
+                            <h1 className="text-3xl font-bold text-orange-500">AfriCook</h1>
+                            <p className="text-gray-500 mt-1">Scopri e condividi le ricette della cucina africana</p>
                         </div>
                         <div className="flex items-center gap-3">
                             <Link

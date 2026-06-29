@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-orange-500 mb-2">RecipeHub</h1>
+        <h1 className="text-3xl font-bold text-orange-500 mb-2">AfriCook</h1>
         <p className="text-gray-500 mb-6">
           {isRegister ? "Crea il tuo account" : "Accedi al tuo account"}
         </p>

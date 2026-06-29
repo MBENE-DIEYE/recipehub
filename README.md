@@ -1,6 +1,6 @@
-# RecipeHub
+# AfriCook
 
-Applicazione web per scoprire e condividere ricette. Ogni utente registrato può aggiungere le proprie ricette e salvare quelle degli altri tra i preferiti.
+Piattaforma web per scoprire e condividere ricette della cucina africana. Ogni utente registrato può aggiungere le proprie ricette e salvare quelle degli altri tra i preferiti.
 
 Demo online: https://recipehub-opal-nu.vercel.app/
 
