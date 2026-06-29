@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { supabase } from "../supabase"
+import { Link } from "react-router-dom"
 
 const RecipeCard = ({ recipe, onDelete, userId }) => {
   const [isFavorite, setIsFavorite] = useState(false)
@@ -59,7 +60,11 @@ const RecipeCard = ({ recipe, onDelete, userId }) => {
         </span>
         <span className="text-sm text-gray-400">{recipe.prep_time_min} min</span>
       </div>
-      <h2 className="text-xl font-semibold text-gray-800 mb-2">{recipe.title}</h2>
+      <Link to={`/recipe/${recipe.id}`}>
+        <h2 className="text-xl font-semibold text-gray-800 mb-2 hover:text-orange-500 transition-colors">
+          {recipe.title}
+        </h2>
+      </Link>
       <p className="text-sm text-gray-500">
         per <span className="font-medium text-gray-700">{recipe.users?.username}</span>
       </p>
