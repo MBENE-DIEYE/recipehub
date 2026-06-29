@@ -1,9 +1,13 @@
 import { useState } from "react"
 import { useAuth } from "../context/AuthContext"
+import { supabase } from "../supabase"
 
 const Login = () => {
   const { signIn, signUp } = useAuth()
   const [isRegister, setIsRegister] = useState(false)
+  const [isForgotPassword, setIsForgotPassword] = useState(false)
+  const [resetEmail, setResetEmail] = useState("")
+  const [resetMessage, setResetMessage] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [username, setUsername] = useState("")
@@ -39,6 +43,43 @@ const Login = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault()
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: `${window.location.origin}/reset-password`
+    })
+    if (error) setResetMessage("Errore. Controlla l'email inserita.")
+    else setResetMessage("Email inviata! Controlla la tua casella di posta.")
+  }
+
+  if (isForgotPassword) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-md">
+          <h1 className="text-3xl font-bold text-orange-500 mb-2">AfriCook</h1>
+          <p className="text-gray-500 mb-6">Recupera la tua password</p>
+          <form onSubmit={handleResetPassword} className="flex flex-col gap-4">
+            <input
+              type="email"
+              placeholder="La tua email..."
+              value={resetEmail}
+              onChange={e => setResetEmail(e.target.value)}
+              required
+              className="px-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-300"
+            />
+            {resetMessage && <p className={`text-sm ${resetMessage.includes("Errore") ? "text-red-500" : "text-green-600"}`}>{resetMessage}</p>}
+            <button type="submit" className="bg-orange-500 text-white px-6 py-2 rounded-xl hover:bg-orange-600 transition-colors">
+              Invia email di recupero
+            </button>
+          </form>
+          <button onClick={() => { setIsForgotPassword(false); setResetMessage("") }} className="mt-4 text-sm text-gray-500 hover:text-orange-500 transition-colors w-full text-center">
+            ← Torna al login
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -96,6 +137,14 @@ const Login = () => {
         >
           {isRegister ? "Hai già un account? Accedi" : "Non hai un account? Registrati"}
         </button>
+        {!isRegister && (
+          <button
+            onClick={() => setIsForgotPassword(true)}
+            className="mt-2 text-sm text-gray-400 hover:text-orange-500 transition-colors w-full text-center"
+          >
+            Hai dimenticato la password?
+          </button>
+        )}
       </div>
     </div>
   )
