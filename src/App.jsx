@@ -9,6 +9,8 @@ const App = () => {
   const { user, loading, signOut } = useAuth()
   const [recipes, setRecipes] = useState([])
   const [search, setSearch] = useState("")
+  const [page, setPage] = useState(1)
+  const PER_PAGE = 6
 
   const fetchRecipes = async () => {
     try {
@@ -28,9 +30,13 @@ const App = () => {
     else setRecipes([])
   }, [user])
 
-  const filtered = recipes.filter(r =>
-    r.category.toLowerCase().includes(search.toLowerCase())
-  )
+  const filtered = recipes.filter(r => {
+    const q = search.toLowerCase()
+    return r.title.toLowerCase().includes(q) || r.category.toLowerCase().includes(q)
+  })
+
+  const totalPages = Math.ceil(filtered.length / PER_PAGE)
+  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE)
 
   if (loading) {
     return (
@@ -60,9 +66,9 @@ const App = () => {
           </div>
           <input
             type="text"
-            placeholder="Cerca per categoria..."
+            placeholder="Cerca per titolo o categoria..."
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => { setSearch(e.target.value); setPage(1) }}
             className="w-full mt-4 px-4 py-2 rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
           />
         </div>
@@ -70,7 +76,7 @@ const App = () => {
       <main className="max-w-4xl mx-auto px-4">
         <RecipeForm onRecipeAdded={fetchRecipes} userId={user.id} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map(recipe => (
+          {paginated.map(recipe => (
             <RecipeCard
               key={recipe.id}
               recipe={recipe}
@@ -79,6 +85,27 @@ const App = () => {
             />
           ))}
         </div>
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-8 mb-4">
+            <button
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-4 py-2 rounded-xl border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-40 transition-colors"
+            >
+              ← Precedente
+            </button>
+            <span className="text-sm text-gray-500">
+              {page} / {totalPages}
+            </span>
+            <button
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="px-4 py-2 rounded-xl border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-40 transition-colors"
+            >
+              Successiva →
+            </button>
+          </div>
+        )}
       </main>
     </div>
   )

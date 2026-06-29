@@ -22,6 +22,8 @@ const RecipeCard = ({ recipe, onDelete, userId }) => {
   }, [recipe.id, userId])
 
   const handleDelete = async () => {
+    if (!window.confirm(`Eliminare "${recipe.title}"? Questa azione non può essere annullata.`)) return
+
     const { error } = await supabase
       .from("recipes")
       .delete()
@@ -68,12 +70,14 @@ const RecipeCard = ({ recipe, onDelete, userId }) => {
         >
           {isFavorite ? "❤️ Nei preferiti" : "🤍 Aggiungi ai preferiti"}
         </button>
-        <button
-          onClick={handleDelete}
-          className="text-sm text-red-400 hover:text-red-600 transition-colors"
-        >
-          Elimina ricetta
-        </button>
+        {userId === recipe.user_id && (
+          <button
+            onClick={handleDelete}
+            className="text-sm text-red-400 hover:text-red-600 transition-colors"
+          >
+            Elimina ricetta
+          </button>
+        )}
       </div>
     </div>
   )
