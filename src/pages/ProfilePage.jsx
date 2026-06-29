@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "../supabase"
 import { useAuth } from "../context/AuthContext"
 
 const ProfilePage = () => {
     const { user, signOut } = useAuth()
+    const navigate = useNavigate()
+
+    const handleSignOut = async () => {
+      await signOut()
+      navigate("/")
+    }
     const [myRecipes, setMyRecipes] = useState([])
     const [favorites, setFavorites] = useState([])
     const [profile, setProfile] = useState(null)
@@ -43,7 +49,7 @@ const ProfilePage = () => {
                         ← Torna alle ricette
                     </Link>
                     <button
-                        onClick={signOut}
+                        onClick={handleSignOut}
                         className="bg-orange-500 text-white px-4 py-2 rounded-xl hover:bg-orange-600 transition-colors text-sm"
                     >
                         Esci

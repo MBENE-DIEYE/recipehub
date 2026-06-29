@@ -4,10 +4,16 @@ import { useAuth } from "../context/AuthContext"
 import RecipeCard from "../components/RecipeCard"
 import RecipeForm from "../components/RecipeForm"
 import Login from "./Login"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const HomePage = () => {
   const { user, loading, signOut } = useAuth()
+  const navigate = useNavigate()
+
+  const handleSignOut = async () => {
+    await signOut()
+    navigate("/")
+  }
   const [recipes, setRecipes] = useState([])
   const [search, setSearch] = useState("")
   const [maxTime, setMaxTime] = useState("")
@@ -84,7 +90,7 @@ const HomePage = () => {
                 Il mio profilo
               </Link>
               <button
-                onClick={signOut}
+                onClick={handleSignOut}
                 className="bg-orange-500 text-white px-4 py-2 rounded-xl hover:bg-orange-600 transition-colors text-sm"
               >
                 Esci
