@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { supabase } from "../supabase"
+import toast from "react-hot-toast"
 
 const RecipeForm = ({ onRecipeAdded, userId }) => {
   const [title, setTitle] = useState("")
   const [category, setCategory] = useState("")
   const [prepTime, setPrepTime] = useState("")
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
   const [image, setImage] = useState(null)
   const [ingredients, setIngredients] = useState([""])
   const [instructions, setInstructions] = useState("")
@@ -26,7 +26,6 @@ const RecipeForm = ({ onRecipeAdded, userId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    setError("")
 
     let image_url = null
 
@@ -40,7 +39,7 @@ const RecipeForm = ({ onRecipeAdded, userId }) => {
 
       if (uploadError) {
         console.error(uploadError)
-        setError("Errore durante il caricamento dell'immagine.")
+        toast.error("Errore durante il caricamento dell'immagine.")
         setLoading(false)
         return
       }
@@ -66,8 +65,9 @@ const RecipeForm = ({ onRecipeAdded, userId }) => {
 
     if (error) {
       console.error(error)
-      setError("Errore durante il salvataggio. Riprova.")
+      toast.error("Errore durante il salvataggio. Riprova.")
     } else {
+      toast.success("Ricetta aggiunta!")
       setTitle("")
       setCategory("")
       setPrepTime("")
@@ -161,7 +161,6 @@ const RecipeForm = ({ onRecipeAdded, userId }) => {
           />
         </div>
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
         <button
           type="submit"
           disabled={loading}
